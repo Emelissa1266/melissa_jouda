@@ -1,8 +1,23 @@
+import { useState } from "react";
 import { ArrowUpRight, Quote, Star, Mail } from "lucide-react";
+import { ServiceWorkModal } from "@/components/ServiceWorkModal";
 
 export default function Index() {
+  const [selectedService, setSelectedService] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openServiceModal = (id: string) => {
+    setSelectedService(id);
+    setIsModalOpen(true);
+  };
+
   return (
     <div className="flex flex-col">
+      <ServiceWorkModal
+        serviceId={selectedService}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
       {/* Hero Section */}
       <section className="relative min-h-[90vh] pt-40 pb-16 px-6 bg-background flex flex-col items-center overflow-hidden">
         {/* Decorative elements */}
@@ -75,19 +90,26 @@ export default function Index() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
+                id: "web-developper",
                 title: "web developper",
                 image: "https://cdn.builder.io/api/v1/image/assets%2Fac2a16b69531496d99c6dcb9dcc67f6d%2F2b6b9de658ab4691b3e39989cef94d9a?format=webp&width=400"
               },
               {
+                id: "ui-ux-design",
                 title: "UI/UX Design",
                 image: "https://cdn.builder.io/api/v1/image/assets%2Fac2a16b69531496d99c6dcb9dcc67f6d%2F2b6b9de658ab4691b3e39989cef94d9a?format=webp&width=400"
               },
               {
+                id: "full-stack-project-development",
                 title: "Full-Stack Project Development",
                 image: "https://cdn.builder.io/api/v1/image/assets%2Fac2a16b69531496d99c6dcb9dcc67f6d%2F2b6b9de658ab4691b3e39989cef94d9a?format=webp&width=400"
               },
             ].map((service, i) => (
-              <div key={i} className="bg-brand-purple rounded-[2.5rem] overflow-hidden group cursor-pointer h-full flex flex-col p-2 shadow-2xl transition-transform hover:-translate-y-2">
+              <div
+                key={i}
+                className="bg-brand-purple rounded-[2.5rem] overflow-hidden group cursor-pointer h-full flex flex-col p-2 shadow-2xl transition-transform hover:-translate-y-2"
+                onClick={() => openServiceModal(service.id)}
+              >
                 <div className="p-8 pb-4">
                   <h3 className="text-2xl font-black text-brand-dark leading-tight group-hover:text-brand-dark/80 transition-colors">
                     {service.title}
