@@ -1,7 +1,11 @@
 import { useState } from "react";
-import { ArrowUpRight, Quote, Star, Mail } from "lucide-react";
+import { ArrowUpRight, Star, Mail, Quote } from "lucide-react";
+import { motion } from "framer-motion";
 import { ServiceWorkModal } from "@/components/ServiceWorkModal";
-
+import profileImage from "../img/me.png";
+import Image2 from "../img/me2.png";
+import eclipse from "../img/Ellipse 2.png";
+import vector from "../img/Vector 2.png";
 export default function Index() {
   const [selectedService, setSelectedService] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -19,20 +23,26 @@ export default function Index() {
         onClose={() => setIsModalOpen(false)}
       />
       {/* Hero Section */}
-      <section className="relative min-h-[90vh] pt-40 pb-16 px-6 bg-background flex flex-col items-center overflow-hidden">
+      <motion.section
+        className="relative min-h-[90vh] pt-40 pb-16 px-6 bg-background flex flex-col items-center overflow-hidden"
+        initial={{ opacity: 0, y: 80 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.5 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
         {/* Decorative elements */}
-        <div className="absolute top-[35%] left-10 md:left-[10%] max-w-[200px] hidden lg:block animate-in fade-in slide-in-from-left duration-1000">
-          <Quote className="text-brand-purple w-12 h-12 mb-4 opacity-50 rotate-180" />
-          <p className="text-sm text-foreground/70 leading-relaxed font-semibold italic">
+        <div className="absolute top-[30%] left-10 md:left-[13%] max-w-[200px] hidden lg:block animate-in fade-in slide-in-from-left duration-1000">
+         <img src={vector} alt="Decorative Vector" className="w-32 h-auto object-contain " />
+         <p className="mt-10 text-m text-foreground/70 leading-relaxed font-semibold italic">
             "Melissa's clean and creative development work brought our vision to life. Truly impressive and highly recommended."
           </p>
         </div>
 
         <div className="absolute top-[40%] right-10 md:right-[10%] hidden lg:block animate-in fade-in slide-in-from-right duration-1000 text-center">
            <div className="flex gap-1 mb-2 text-brand-orange justify-center">
-              <Star className="w-5 h-5 fill-current" />
-              <Star className="w-5 h-5 fill-current" />
-              <Star className="w-5 h-5 fill-current" />
+              <Star className="w-7 h-7 fill-current" />
+              <Star className="w-7 h-7 fill-current" />
+              <Star className="w-7 h-7 fill-current" />
             </div>
             <p className="text-4xl font-black text-brand-dark tracking-tighter">3 Years</p>
             <p className="text-[10px] uppercase tracking-[0.2em] text-foreground/40 font-black mt-1">Experince</p>
@@ -44,44 +54,67 @@ export default function Index() {
         </div>
 
         {/* Hero Title */}
-        <h1 className="text-6xl md:text-8xl lg:text-[100px] font-black text-center mb-8 tracking-tighter leading-[0.9] max-w-5xl mx-auto text-brand-dark">
+        <motion.h1
+          className="text-4xl md:text-6xl lg:text-7xl font-black text-center tracking-tighter leading-[0.9] max-w-5xl mx-auto text-brand-dark"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.6 }}
+          transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
+        >
           I'm Melissa, <br />
           Software Engineer
-        </h1>
+        </motion.h1>
 
         {/* Profile Image & Background Circle */}
-        <div className="relative mt-auto w-full max-w-2xl mx-auto flex flex-col items-center">
+        <motion.div
+          className="relative mt-auto w-full max-w-2xl mx-auto flex flex-col items-center"
+          initial={{ opacity: 0, y: 80, scale: 0.9 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, amount: 0.7 }}
+          transition={{ duration: 0.9, ease: "easeOut", delay: 0.2 }}
+        >
           <div className="absolute bottom-0 w-[90%] md:w-[100%] aspect-square bg-brand-purple rounded-full -z-10 animate-in zoom-in duration-700"></div>
 
           <img
-            src="https://cdn.builder.io/api/v1/image/assets%2Fac2a16b69531496d99c6dcb9dcc67f6d%2Fb0cfda8275dc4cf1b8f13413f3c2eddf?format=webp&width=800&height=1200"
+            src={profileImage}
             alt="Melissa"
-            className="w-full max-w-lg object-contain z-10 drop-shadow-[0_20px_50px_rgba(0,0,0,0.1)] relative"
+            className="w-full max-w-lg object-contain z-10 drop-shadow-[0_0px_0px_rgba(0,0,0,0.1)] relative"
+          />
+              <img
+           src={eclipse}
+            alt="Eclipse"
+            className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-3xL object-contain z-0"
           />
 
           {/* Hero Buttons */}
-          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex gap-2 bg-white/20 backdrop-blur-xl p-1.5 rounded-full border border-white/30 shadow-2xl">
+          <motion.div
+            className="absolute bottom-10 -translate-x-1/2 z-20 flex gap-2 bg-white/20 backdrop-blur-xl p-1.5 rounded-full border border-white/30 shadow-2xl"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.8 }}
+            transition={{ duration: 0.7, ease: "easeOut", delay: 0.3 }}
+          >
             <button className="px-8 py-3 bg-white text-brand-dark rounded-full font-bold text-sm flex items-center gap-2 hover:bg-slate-50 transition-all shadow-sm">
               Portfolio <ArrowUpRight className="w-4 h-4" />
             </button>
             <button className="px-8 py-3 text-white rounded-full font-bold text-sm hover:bg-white/10 transition-all">
               Hire me
             </button>
-          </div>
-        </div>
-      </section>
+          </motion.div>
+        </motion.div>
+      </motion.section>
 
       {/* Services Section */}
       <section className="bg-brand-dark py-32 px-6 relative overflow-hidden rounded-[4rem] -mt-20 z-10 mx-4">
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="flex flex-col md:flex-row justify-between items-start mb-24 gap-12">
             <div className="max-w-xl">
-              <h2 className="text-5xl md:text-7xl font-black text-white mb-0 leading-tight">
+              <h2 className="text-5xl ml-[50px] md:text-(6xl font-black text-white mb-0 leading-tight">
                 My <span className="text-brand-purple italic font-light">Services</span>
               </h2>
             </div>
             <div className="max-w-md pt-4">
-              <p className="text-white/50 leading-relaxed font-medium text-sm md:text-base">
+              <p className="text-white/50 leading-relaxed font-medium text-sm md:text-base mr-[50px]">
                 I craft modern, user-focused web experiences — from concept and design to deployment. Clean code, smooth interfaces, and a touch of creativity in every project.
               </p>
             </div>
@@ -203,7 +236,7 @@ export default function Index() {
           <div className="flex-1 relative">
              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] aspect-square bg-brand-purple rounded-full blur-[80px] opacity-30 -z-10"></div>
              <img
-               src="https://cdn.builder.io/api/v1/image/assets%2Fac2a16b69531496d99c6dcb9dcc67f6d%2Fd28e1481a06a4f67bc0017805f98f5b4?format=webp&width=800&height=1200"
+               src={Image2}
                alt="Why Hire Melissa"
                className="relative z-10 w-full max-w-md mx-auto object-contain drop-shadow-2xl animate-in fade-in zoom-in duration-1000"
              />
@@ -223,9 +256,9 @@ export default function Index() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-32 px-6 text-center">
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-5xl md:text-8xl font-black text-brand-dark mb-16 tracking-tighter leading-[0.9]">
+      <section className="py-16 px-6 text-center">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-4xl md:text-7xl font-black text-brand-dark mb-16 tracking-tighter leading-[0.9]">
             Have an Awsome Project <br /> Idea? <span className="text-brand-orange italic font-light">Let's Discuss</span>
           </h2>
 

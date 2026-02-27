@@ -50,9 +50,9 @@ export function Footer() {
           <div className="col-span-1">
             <h3 className="text-lg font-bold mb-6 text-brand-orange/80">Contact</h3>
             <div className="flex flex-col gap-4 text-white/70">
-              <p>+20 11 43 63 73 41</p>
-              <p>fawziisayed1209@gmail.com</p>
-              <p>fawziulux.com</p>
+              <p>+213 776638367</p>
+              <p>Joudamelissa2@gmail.com</p>
+              <p>melissaJouda.com</p>
             </div>
           </div>
 
@@ -72,7 +72,7 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col md:flex-row justify-between items-center text-white/40 text-sm">
-          <p>Copyright © 2023 Fawziulux. All Rights Reserved.</p>
+          <p>Copyright © 2026 melissajouda. All Rights Reserved.</p>
           <div className="flex gap-8 mt-4 md:mt-0">
             <Link to="#" className="hover:text-white">User Terms & Conditions</Link>
             <Link to="#" className="hover:text-white">Privacy Policy</Link>
