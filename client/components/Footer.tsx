@@ -22,10 +22,10 @@ export function Footer() {
                 alt="Logo"
                 className="w-12 h-12 object-contain"
               />
-              <span className="text-2xl font-black uppercase tracking-[0.2em] text-white">JCREA</span>
+              <span className="text-2xl font-black uppercase tracking-[0.2em] text-white">Jouda Melissa</span>
             </div>
             <p className="text-white/40 mb-10 max-w-xs leading-[1.8] font-medium text-sm">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed congue interdum ligula a dignissim. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lobortis orci elementum egestas lobortis.
+              I am a passionate front-end developer with a knack for creating visually stunning and user-friendly web applications. With a strong foundation in React, TypeScript, and Node.js, I specialize in building dynamic interfaces that seamlessly integrate with powerful back-end services.
             </p>
             <div className="flex gap-4">
               {[Facebook, Instagram, Twitter, Linkedin].map((Icon, i) => (

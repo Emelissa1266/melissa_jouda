@@ -6,6 +6,11 @@ import profileImage from "../img/me.png";
 import Image2 from "../img/me2.png";
 import eclipse from "../img/Ellipse 2.png";
 import vector from "../img/Vector 2.png";
+import nova1 from "../img/nova4.png";
+import pc from "../img/fc.png";
+import mk from "../img/marketing1.png";
+import mark1 from "../img/mark1.png";
+
 export default function Index() {
   const [selectedService, setSelectedService] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -124,18 +129,18 @@ export default function Index() {
             {[
               {
                 id: "web-developper",
-                title: "web developper",
-                image: "https://cdn.builder.io/api/v1/image/assets%2Fac2a16b69531496d99c6dcb9dcc67f6d%2F2b6b9de658ab4691b3e39989cef94d9a?format=webp&width=400"
+                title: "marketing expert",
+                image: mk
               },
               {
                 id: "ui-ux-design",
                 title: "UI/UX Design",
-                image: "https://cdn.builder.io/api/v1/image/assets%2Fac2a16b69531496d99c6dcb9dcc67f6d%2F2b6b9de658ab4691b3e39989cef94d9a?format=webp&width=400"
+                image: nova1 
               },
               {
                 id: "full-stack-project-development",
                 title: "Full-Stack Project Development",
-                image: "https://cdn.builder.io/api/v1/image/assets%2Fac2a16b69531496d99c6dcb9dcc67f6d%2F2b6b9de658ab4691b3e39989cef94d9a?format=webp&width=400"
+                image: pc
               },
             ].map((service, i) => (
               <div
@@ -186,13 +191,13 @@ export default function Index() {
             <div className="space-y-32">
               {[
                 {
-                  company: "Raqmen Hosting",
+                  company: "Hosting platform as startup",
                   period: "jan 2025 - Mai 2025",
                   role: "Front-end developper",
                   description: "Developed a full-stack cloud hosting platform using React, TypeScript, and Node.js. Built dynamic dashboards, project management pages, and resource deployment interfaces."
                 },
                 {
-                  company: "Neuron (Hackathon Project)",
+                  company: "more than 4 Hackathon Projects",
                   period: "dec 2024",
                   role: "UI/UX Designer",
                   description: "Redesigned the interface of a medical management platform to improve user flow and accessibility. Created interactive prototypes in Figma and presented a modern, patient-focused experience.",

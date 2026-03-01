@@ -1,5 +1,16 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { ArrowUpRight, Github, ExternalLink } from "lucide-react";
+import nova1 from "@/img/nova1.png";
+import nova2 from "@/img/nova2.png";
+import nova3 from "@/img/nova3.png";    
+import arvr from "@/img/arvr.png";
+import design from "@/img/design.png";
+import pc from "@/img/pc.png";
+import mark1 from "@/img/mark1.png";
+import mark2 from "@/img/mark2.jpg";
+import frontend1 from "@/img/frontend1.png";
+import express2 from "@/img/express2.png";
+
 
 export type Project = {
   title: string;
@@ -20,22 +31,22 @@ export type ServiceType = {
 const SERVICES_DATA: Record<string, ServiceType> = {
   "web-developper": {
     id: "web-developper",
-    title: "Web Development",
-    description: "Modern, high-performance websites built with the latest technologies.",
+    title: "marketing",
+    description: "Crafting compelling narratives and strategies to elevate brands and drive engagement.",
     projects: [
       {
-        title: "E-Commerce Platform",
-        description: "A full-featured online store with cart functionality and payment integration.",
-        image: "https://images.unsplash.com/photo-1557821552-17105176677c?q=80&w=800&auto=format&fit=crop",
-        tags: ["React", "Next.js", "Stripe", "Tailwind"],
+        title: "Actor & Video Content Creator",
+        description: "I create engaging, high-impact video content",
+        image: mark1,
+        tags: ["Tech events & hackathons", "Startup promotions", "Educational reels", "Brand storytelling"],
         link: "#",
       },
       {
-        title: "Portfolio CMS",
-        description: "A custom content management system for creative professionals.",
-        image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop",
-        tags: ["TypeScript", "Node.js", "PostgreSQL"],
-        github: "#",
+        title: "Marketing Expert",
+        description: "I focus on visibility, engagement, and conversion — not just aesthetics..",
+        image: mark2,
+        tags: ["Digital strategy & positioning", "Social media content planning", "Product storytelling"],
+        link: "#",
       }
     ]
   },
@@ -45,16 +56,23 @@ const SERVICES_DATA: Record<string, ServiceType> = {
     description: "User-centric designs that are both beautiful and functional.",
     projects: [
       {
-        title: "Mobile Banking App",
-        description: "Focusing on ease of use and accessibility for financial management.",
-        image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=800&auto=format&fit=crop",
+        title: "Mobile management App",
+        description: "Focusing on ease of use and accessibility for clubs management.",
+        image: nova3,
         tags: ["Figma", "User Research", "Prototyping"],
       },
       {
-        title: "Travel Booking Interface",
-        description: "A clean and modern interface for searching and booking flights.",
-        image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=800&auto=format&fit=crop",
+        title: "AR/VR Interface",
+        description: "Innovative design for immersive augmented and virtual reality experiences.",
+        image: arvr,
         tags: ["Figma", "Design System"],
+      },
+      {
+        title: "portfolio design",
+        description: "A sleek and modern design for a personal portfolio website.",
+        image: design,
+        tags: ["Figma", "Branding", "Visual Design"],
+
       }
     ]
   },
@@ -64,17 +82,17 @@ const SERVICES_DATA: Record<string, ServiceType> = {
     description: "End-to-end development of complex web applications.",
     projects: [
       {
-        title: "SaaS Dashboard",
-        description: "Comprehensive dashboard for monitoring and managing enterprise data.",
-        image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop",
-        tags: ["React", "Express", "MongoDB", "Chart.js"],
+        title: "hosting platform",
+        description: "A robust hosting platform for developers to deploy and manage their applications with ease.",
+        image: frontend1,
+        tags: ["React", "Express", "MongoDB", "Node.js"],
         link: "#",
       },
       {
-        title: "Real-time Chat App",
-        description: "Scalable chat application with instant messaging and file sharing.",
-        image: "https://images.unsplash.com/photo-1611746872915-64382b5c76da?q=80&w=800&auto=format&fit=crop",
-        tags: ["Socket.io", "React", "Redis"],
+        title: "e-commerce platform",
+        description: "A scalable e-commerce platform with real-time features and seamless user experience.",
+        image: express2,
+        tags: ["node.js", "React", "postgreSQL", "socket.io"],
         github: "#",
       }
     ]
