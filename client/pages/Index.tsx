@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { ArrowUpRight, Star, Mail, Quote } from "lucide-react";
 import { motion } from "framer-motion";
 import { ServiceWorkModal } from "@/components/ServiceWorkModal";
@@ -10,10 +10,30 @@ import nova1 from "../img/nova4.png";
 import pc from "../img/fc.png";
 import mk from "../img/marketing1.png";
 import mark1 from "../img/mark1.png";
+import { toast } from "sonner";
+
 
 export default function Index() {
-  const [selectedService, setSelectedService] = useState<string | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedService, setSelectedService] = React.useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [email, setEmail] = React.useState("");
+
+  const scrollToContact = () => {
+    const contactSection = document.getElementById("contact");
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const handleEmailSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !email.includes("@")) {
+      toast.error("Please enter a valid email address");
+      return;
+    }
+    toast.success("Thanks for reaching out! I'll get back to you soon.");
+    setEmail("");
+  };
 
   const openServiceModal = (id: string) => {
     setSelectedService(id);
@@ -31,6 +51,7 @@ export default function Index() {
       <motion.section
         className="relative min-h-[90vh] pt-40 pb-16 px-6 bg-background flex flex-col items-center overflow-hidden"
         initial={{ opacity: 0, y: 80 }}
+         id="home"
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.5 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
@@ -65,6 +86,7 @@ export default function Index() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.6 }}
           transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
+        id="about"
         >
           I'm Melissa, <br />
           Software Engineer
@@ -99,18 +121,27 @@ export default function Index() {
             viewport={{ once: true, amount: 0.8 }}
             transition={{ duration: 0.7, ease: "easeOut", delay: 0.3 }}
           >
-            <button className="px-8 py-3 bg-white text-brand-dark rounded-full font-bold text-sm flex items-center gap-2 hover:bg-slate-50 transition-all shadow-sm">
+           <button
+              onClick={() => {
+                const projectSection = document.getElementById("project");
+                if (projectSection) projectSection.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="px-8 py-3 bg-white text-brand-dark rounded-full font-bold text-sm flex items-center gap-2 hover:bg-slate-50 transition-all shadow-sm"
+            >
               Portfolio <ArrowUpRight className="w-4 h-4" />
             </button>
-            <button className="px-8 py-3 text-white rounded-full font-bold text-sm hover:bg-white/10 transition-all">
-              Hire me
+  <button
+              onClick={scrollToContact}
+              className="px-8 py-3 text-white rounded-full font-bold text-sm hover:bg-white/10 transition-all"
+            >
+              Contact me
             </button>
           </motion.div>
         </motion.div>
       </motion.section>
 
       {/* Services Section */}
-      <section className="bg-brand-dark py-32 px-6 relative overflow-hidden rounded-[4rem] -mt-20 z-10 mx-4">
+      <section id="service" className="bg-brand-dark py-32 px-6 relative overflow-hidden rounded-[4rem] -mt-20 z-10 mx-4">
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="flex flex-col md:flex-row justify-between items-start mb-24 gap-12">
             <div className="max-w-xl">
@@ -178,7 +209,7 @@ export default function Index() {
       </section>
 
       {/* Experience Section */}
-      <section className="py-32 px-6 bg-[#F3F4F6]">
+      <section id="project" className="py-32 px-6 bg-[#F3F4F6]">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-5xl md:text-7xl font-black text-center mb-32 text-brand-dark tracking-tighter">
             My Work Experince
@@ -246,22 +277,25 @@ export default function Index() {
                className="relative z-10 w-full max-w-md mx-auto object-contain drop-shadow-2xl animate-in fade-in zoom-in duration-1000"
              />
           </div>
-          <div className="flex-1 max-w-2xl">
+          <div id ="why-me" className="flex-1 max-w-2xl">
             <h2 className="text-5xl md:text-7xl font-black text-brand-dark mb-10 leading-[0.9] tracking-tighter">
               Why <span className="italic font-light text-brand-purple">Hire</span> me?
             </h2>
             <p className="text-brand-dark/60 leading-relaxed mb-12 text-base md:text-lg font-medium">
               I combine strong technical skills with a keen eye for design, creating digital experiences that are both functional and beautiful. With experience in full-stack development and UI/UX design, I turn complex ideas into modern, user-friendly interfaces. I care deeply about clean code, responsive design, and user satisfaction — every project I take on reflects passion, precision, and creativity. I don't just build websites — I craft experiences that make an impact.
             </p>
-            <button className="bg-brand-dark text-white px-12 py-5 rounded-full font-black text-lg flex items-center gap-2 hover:bg-brand-dark/90 transition-all hover:scale-105 shadow-2xl shadow-brand-dark/20">
-              Hire me <ArrowUpRight className="w-6 h-6 text-brand-purple" />
+             <button
+              onClick={scrollToContact}
+              className="bg-brand-dark text-white px-12 py-5 rounded-full font-black text-lg flex items-center gap-2 hover:bg-brand-dark/90 transition-all hover:scale-105 shadow-2xl shadow-brand-dark/20"
+            >
+          Hire me <ArrowUpRight className="w-6 h-6 text-brand-purple" />
             </button>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 px-6 text-center">
+      <section id="contact" className="py-16 px-6 text-center">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl md:text-7xl font-black text-brand-dark mb-16 tracking-tighter leading-[0.9]">
             Have an Awsome Project <br /> Idea? <span className="text-brand-orange italic font-light">Let's Discuss</span>
