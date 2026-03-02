@@ -4,6 +4,10 @@ import * as express from "express";
 
 const app = createServer();
 const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`🚀 Fusion Starter server running on port ${port}`);
+});
+
 
 // In production, serve the built SPA files
 const __dirname = import.meta.dirname;
