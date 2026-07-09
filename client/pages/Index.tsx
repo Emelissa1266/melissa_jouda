@@ -6,9 +6,9 @@ import profileImage from "../img/me.png";
 import Image2 from "../img/me2.png";
 import eclipse from "../img/Ellipse 2.png";
 import vector from "../img/Vector 2.png";
-import nova1 from "../img/nova4.png";
+import nova1 from "../img/uiux.png";
 import pc from "../img/fc.png";
-import mk from "../img/marketing1.png";
+import mk from "../img/marketing.jpg";
 import mark1 from "../img/mark1.png";
 import { toast } from "sonner";
 
@@ -89,7 +89,6 @@ export default function Index() {
         id="about"
         >
           I'm Melissa, <br />
-          Software Engineer
         </motion.h1>
 
         {/* Profile Image & Background Circle */}
@@ -131,10 +130,12 @@ export default function Index() {
               Portfolio <ArrowUpRight className="w-4 h-4" />
             </button>
   <button
-              onClick={scrollToContact}
+              onClick={() => {
+                window.open("https://github.com/Emelissa1266", "_blank");
+              }}
               className="px-8 py-3 text-white rounded-full font-bold text-sm hover:bg-white/10 transition-all"
             >
-              Contact me
+              github <ArrowUpRight className="w-4 h-4" />
             </button>
           </motion.div>
         </motion.div>
@@ -212,7 +213,7 @@ export default function Index() {
       <section id="project" className="py-32 px-6 bg-[#F3F4F6]">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-5xl md:text-7xl font-black text-center mb-32 text-brand-dark tracking-tighter">
-            My Work Experince
+            My Work Experience
           </h2>
 
           <div className="relative">
@@ -221,26 +222,50 @@ export default function Index() {
 
             <div className="space-y-32">
               {[
-                {
-                  company: "Hosting platform as startup",
-                  period: "jan 2025 - Mai 2025",
-                  role: "Front-end developper",
-                  description: "Developed a full-stack cloud hosting platform using React, TypeScript, and Node.js. Built dynamic dashboards, project management pages, and resource deployment interfaces."
-                },
-                {
-                  company: "more than 4 Hackathon Projects",
-                  period: "dec 2024",
-                  role: "UI/UX Designer",
-                  description: "Redesigned the interface of a medical management platform to improve user flow and accessibility. Created interactive prototypes in Figma and presented a modern, patient-focused experience.",
-                  dot: "dark"
-                },
-                {
-                  company: "RH Website",
-                  period: "Sep 2024",
-                  role: "Full-Stack Developer",
-                  description: "Designed and developed a professional website for RH, highlighting its brand identity, features, and services. Implemented a responsive design with modern UI animations and a consistent dark theme."
-                }
-              ].map((exp, i) => (
+   {
+    company: "Freelance Full-Stack Developer",
+    period: "2024 - Present",
+    role: "Web and app Solutions Developer",
+    description:
+      "Design and develop modern web applications and cloud-based platforms using React, TypeScript, Node.js, PostgreSQL, and MongoDB. Deliver scalable, responsive, and user-friendly solutions tailored to clients' needs."
+  },
+  {
+    company: " ExploriDZ ",
+    period: "Jan 2026 - Present",
+    role: "Founder & CEO",
+    description:
+      " Founded ExploriDZ, a digital platform that connects travelers with local experiences and guides. Led product development, marketing strategy, and business operations, resulting in a growing user base and partnerships with local businesses."
+  },{
+    company: " Raqmen Hosting ",
+    period: "Jan 2025 - Present",
+    role: "co-Founder & CMO",
+    description:
+      "Designed and developed a hybrid cloud hosting platform inspired by modern PaaS providers. Built SaaS and IaaS features including project deployment, resource management, billing, monitoring, and Git-based integrations using React, TypeScript, Node.js, PostgreSQL, and MongoDB."
+  },
+  {
+    company: "Open Minds Club",
+    period: "2025 - Present",
+    role: "Marketing Team Lead",
+    description:
+      "Lead the marketing department and oversee branding, social media strategy, and promotional campaigns. Coordinate with multimedia and event teams to increase engagement and promote workshops, hackathons, and community initiatives.",
+    dot: "dark"
+  },
+  {
+    company: "Hackathons & Innovation Programs",
+    period: "2024 - Present",
+    role: "UI/UX Designer & Innovator",
+    description:
+      "Participated in multiple hackathons and entrepreneurship programs, designing modern digital experiences and solving real-world challenges. Created user-centered interfaces in Figma, developed case studies, and collaborated with multidisciplinary teams."
+  },
+  {
+    company: "Rise Up Program - Djezzy",
+    period: "2025",
+    role: "Startup Program Participant",
+    description:
+      "Selected for Djezzy's Rise Up startup support program with Raqmen Hosting. Worked alongside mentors and entrepreneurs to strengthen business strategy, pitching skills, and product development while gaining recognition for innovation.",
+    dot: "dark"
+  }
+].map((exp, i) => (
                 <div key={i} className={`flex flex-col md:flex-row items-center gap-12 md:gap-24 ${i % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}>
                   <div className={`flex-1 text-center ${i % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}>
                     <h3 className="text-3xl font-black text-brand-dark mb-1">{exp.company}</h3>
@@ -262,34 +287,6 @@ export default function Index() {
                 </div>
               ))}
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Why Hire Me Section */}
-      <section className="py-32 px-6">
-        <div className="max-w-7xl mx-auto bg-[#E8EBF1] rounded-[4rem] overflow-hidden p-8 md:p-24 flex flex-col lg:flex-row items-center gap-20 shadow-xl">
-          <div className="flex-1 relative">
-             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] aspect-square bg-brand-purple rounded-full blur-[80px] opacity-30 -z-10"></div>
-             <img
-               src={Image2}
-               alt="Why Hire Melissa"
-               className="relative z-10 w-full max-w-md mx-auto object-contain drop-shadow-2xl animate-in fade-in zoom-in duration-1000"
-             />
-          </div>
-          <div id ="why-me" className="flex-1 max-w-2xl">
-            <h2 className="text-5xl md:text-7xl font-black text-brand-dark mb-10 leading-[0.9] tracking-tighter">
-              Why <span className="italic font-light text-brand-purple">Hire</span> me?
-            </h2>
-            <p className="text-brand-dark/60 leading-relaxed mb-12 text-base md:text-lg font-medium">
-              I combine strong technical skills with a keen eye for design, creating digital experiences that are both functional and beautiful. With experience in full-stack development and UI/UX design, I turn complex ideas into modern, user-friendly interfaces. I care deeply about clean code, responsive design, and user satisfaction — every project I take on reflects passion, precision, and creativity. I don't just build websites — I craft experiences that make an impact.
-            </p>
-             <button
-              onClick={scrollToContact}
-              className="bg-brand-dark text-white px-12 py-5 rounded-full font-black text-lg flex items-center gap-2 hover:bg-brand-dark/90 transition-all hover:scale-105 shadow-2xl shadow-brand-dark/20"
-            >
-          Hire me <ArrowUpRight className="w-6 h-6 text-brand-purple" />
-            </button>
           </div>
         </div>
       </section>

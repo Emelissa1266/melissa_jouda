@@ -9,9 +9,6 @@ export function Footer() {
           <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-8 md:mb-0 text-center md:text-left">
             Lets Connect there
           </h2>
-          <button className="bg-brand-orange text-white px-8 py-4 rounded-full font-bold text-lg flex items-center gap-2 hover:bg-brand-orange/90 transition-colors">
-            Hire me <ArrowUpRight className="w-5 h-5" />
-          </button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
