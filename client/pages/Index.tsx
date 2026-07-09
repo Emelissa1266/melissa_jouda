@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ArrowUpRight, Star, Mail, Quote } from "lucide-react";
+import { ArrowUpRight, Star, Mail, Quote, ChevronDown, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { ServiceWorkModal } from "@/components/ServiceWorkModal";
 import profileImage from "../img/me.png";
@@ -16,7 +16,20 @@ import { toast } from "sonner";
 export default function Index() {
   const [selectedService, setSelectedService] = React.useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = React.useState(false);
-  const [email, setEmail] = React.useState("");
+  const [formData, setFormData] = React.useState({
+    fullName: "",
+    email: "",
+    phone: "",
+    service: "" as "Marketing" | "Design" | "Web Development" | "",
+    description: "",
+    budget: "",
+    deadline: "",
+  });
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [submitStatus, setSubmitStatus] = React.useState<{ type: "success" | "error" | null; message: string }>({
+    type: null,
+    message: ""
+  });
 
   const scrollToContact = () => {
     const contactSection = document.getElementById("contact");
@@ -25,14 +38,76 @@ export default function Index() {
     }
   };
 
-  const handleEmailSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email || !email.includes("@")) {
+    setSubmitStatus({ type: null, message: "" });
+
+    // Validate fields
+    if (!formData.fullName.trim()) {
+      toast.error("Full Name is required");
+      return;
+    }
+    if (!formData.email.trim()) {
+      toast.error("Email Address is required");
+      return;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email.trim())) {
       toast.error("Please enter a valid email address");
       return;
     }
-    toast.success("Thanks for reaching out! I'll get back to you soon.");
-    setEmail("");
+    if (!formData.phone.trim()) {
+      toast.error("Phone Number is required");
+      return;
+    }
+    const phoneRegex = /^\+?[0-9\s\-().]{7,20}$/;
+    if (!phoneRegex.test(formData.phone.trim())) {
+      toast.error("Please enter a valid phone number (e.g. +1 234 567 890)");
+      return;
+    }
+    if (!formData.service) {
+      toast.error("Please select a service");
+      return;
+    }
+    if (!formData.description.trim()) {
+      toast.error("Project description is required");
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+      if (response.ok && data.success) {
+        toast.success(data.message);
+        setSubmitStatus({ type: "success", message: data.message });
+        setFormData({
+          fullName: "",
+          email: "",
+          phone: "",
+          service: "",
+          description: "",
+          budget: "",
+          deadline: "",
+        });
+      } else {
+        toast.error(data.message || "Failed to submit request.");
+        setSubmitStatus({ type: "error", message: data.message || "Submission failed." });
+      }
+    } catch (err) {
+      console.error("Submission error:", err);
+      toast.error("Failed to submit request due to a network error.");
+      setSubmitStatus({ type: "error", message: "Network error. Please try again later." });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const openServiceModal = (id: string) => {
@@ -59,7 +134,7 @@ export default function Index() {
         {/* Decorative elements */}
         <div className="absolute top-[30%] left-10 md:left-[13%] max-w-[200px] hidden lg:block animate-in fade-in slide-in-from-left duration-1000">
          <img src={vector} alt="Decorative Vector" className="w-32 h-auto object-contain " />
-         <p className="mt-10 text-m text-foreground/70 leading-relaxed font-semibold italic">
+         <p className="mt-10 text-sm text-foreground/70 leading-relaxed font-semibold italic">
             "Melissa's clean and creative development work brought our vision to life. Truly impressive and highly recommended."
           </p>
         </div>
@@ -86,9 +161,10 @@ export default function Index() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.6 }}
           transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
-        id="about"
+          id="about"
         >
           I'm Melissa, <br />
+          a <span className="text-brand-orange italic font-light">Full-Stack Developer</span> & <br className="md:hidden" /> <span className="border-b-4 border-brand-purple">Marketing Expert</span>.
         </motion.h1>
 
         {/* Profile Image & Background Circle */}
@@ -107,9 +183,9 @@ export default function Index() {
             className="w-full max-w-lg object-contain z-10 drop-shadow-[0_0px_0px_rgba(0,0,0,0.1)] relative"
           />
               <img
-           src={eclipse}
+            src={eclipse}
             alt="Eclipse"
-            className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-3xL object-contain z-0"
+            className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-3xl object-contain z-0"
           />
 
           {/* Hero Buttons */}
@@ -146,12 +222,12 @@ export default function Index() {
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="flex flex-col md:flex-row justify-between items-start mb-24 gap-12">
             <div className="max-w-xl">
-              <h2 className="text-5xl ml-[50px] md:text-(6xl font-black text-white mb-0 leading-tight">
+              <h2 className="text-5xl md:text-6xl font-black text-white mb-0 leading-tight">
                 My <span className="text-brand-purple italic font-light">Services</span>
               </h2>
             </div>
             <div className="max-w-md pt-4">
-              <p className="text-white/50 leading-relaxed font-medium text-sm md:text-base mr-[50px]">
+              <p className="text-white/50 leading-relaxed font-medium text-sm md:text-base">
                 I craft modern, user-focused web experiences — from concept and design to deployment. Clean code, smooth interfaces, and a touch of creativity in every project.
               </p>
             </div>
@@ -202,7 +278,7 @@ export default function Index() {
           </div>
 
           <div className="mt-20 flex justify-center gap-2">
-            {[0, 1, 2, 3].map((dot) => (
+            {[0, 1, 2].map((dot) => (
               <div key={dot} className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${dot === 0 ? 'bg-brand-purple w-10' : 'bg-white/10'}`} />
             ))}
           </div>
@@ -292,27 +368,165 @@ export default function Index() {
       </section>
 
       {/* CTA Section */}
-      <section id="contact" className="py-16 px-6 text-center">
+      <section id="contact" className="py-24 px-6 text-center bg-[#F3F4F6]">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl md:text-7xl font-black text-brand-dark mb-16 tracking-tighter leading-[0.9]">
-            Have an Awsome Project <br /> Idea? <span className="text-brand-orange italic font-light">Let's Discuss</span>
+          <h2 className="text-4xl md:text-7xl font-black text-brand-dark mb-6 tracking-tighter leading-[0.9]">
+            Have an Awesome Project <br /> Idea? <span className="text-brand-orange italic font-light">Let's Discuss</span>
           </h2>
+          <p className="text-brand-dark/60 font-medium max-w-lg mx-auto mb-12 text-sm md:text-base leading-relaxed">
+            Fill out the form below and let's bring your vision to life. I will respond to your inquiry within 24 hours.
+          </p>
 
-          <div className="flex flex-col md:flex-row gap-4 max-w-2xl mx-auto mb-20 relative">
-            <div className="flex-1 relative group">
-              <input
-                type="email"
-                placeholder="Enter Email Address"
-                className="w-full bg-[#F3F4F6] border-2 border-transparent rounded-full pl-16 pr-8 py-6 focus:outline-none focus:bg-white focus:border-brand-orange transition-all font-bold text-lg shadow-inner"
-              />
-              <div className="absolute left-6 top-1/2 -translate-y-1/2 text-brand-orange">
-                <Mail className="w-7 h-7" />
+          <form onSubmit={handleFormSubmit} className="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-2xl border border-slate-100 max-w-3xl mx-auto text-left mb-16 relative overflow-hidden">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              {/* Full Name */}
+              <div className="flex flex-col gap-2">
+                <label htmlFor="fullName" className="text-xs font-black uppercase tracking-widest text-brand-dark/60 ml-2">
+                  Full Name <span className="text-brand-orange">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="fullName"
+                  placeholder="John Doe"
+                  required
+                  value={formData.fullName}
+                  onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                  className="w-full bg-[#F3F4F6] border-2 border-transparent rounded-[1.2rem] px-6 py-4 focus:outline-none focus:bg-white focus:border-brand-orange transition-all font-semibold text-brand-dark shadow-inner placeholder:text-brand-dark/30"
+                />
+              </div>
+
+              {/* Email Address */}
+              <div className="flex flex-col gap-2">
+                <label htmlFor="email" className="text-xs font-black uppercase tracking-widest text-brand-dark/60 ml-2">
+                  Email Address <span className="text-brand-orange">*</span>
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  placeholder="john@example.com"
+                  required
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  className="w-full bg-[#F3F4F6] border-2 border-transparent rounded-[1.2rem] px-6 py-4 focus:outline-none focus:bg-white focus:border-brand-orange transition-all font-semibold text-brand-dark shadow-inner placeholder:text-brand-dark/30"
+                />
+              </div>
+
+              {/* Phone Number */}
+              <div className="flex flex-col gap-2">
+                <label htmlFor="phone" className="text-xs font-black uppercase tracking-widest text-brand-dark/60 ml-2">
+                  Phone Number <span className="text-brand-orange">*</span>
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  placeholder="+1 234 567 890"
+                  required
+                  value={formData.phone}
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  className="w-full bg-[#F3F4F6] border-2 border-transparent rounded-[1.2rem] px-6 py-4 focus:outline-none focus:bg-white focus:border-brand-orange transition-all font-semibold text-brand-dark shadow-inner placeholder:text-brand-dark/30"
+                />
+              </div>
+
+              {/* Service Needed */}
+              <div className="flex flex-col gap-2">
+                <label htmlFor="service" className="text-xs font-black uppercase tracking-widest text-brand-dark/60 ml-2">
+                  Service Needed <span className="text-brand-orange">*</span>
+                </label>
+                <div className="relative">
+                  <select
+                    id="service"
+                    required
+                    value={formData.service}
+                    onChange={(e) => setFormData({ ...formData, service: e.target.value as any })}
+                    className="w-full bg-[#F3F4F6] border-2 border-transparent rounded-[1.2rem] px-6 py-4 focus:outline-none focus:bg-white focus:border-brand-orange transition-all font-semibold text-brand-dark shadow-inner appearance-none cursor-pointer placeholder:text-brand-dark/30"
+                  >
+                    <option value="" disabled>Select a service</option>
+                    <option value="Marketing">Marketing</option>
+                    <option value="Design">Design</option>
+                    <option value="Web Development">Web Development</option>
+                  </select>
+                  <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-brand-dark/40">
+                    <ChevronDown className="w-5 h-5" />
+                  </div>
+                </div>
+              </div>
+
+              {/* Budget */}
+              <div className="flex flex-col gap-2">
+                <label htmlFor="budget" className="text-xs font-black uppercase tracking-widest text-brand-dark/60 ml-2">
+                  Budget (Optional)
+                </label>
+                <input
+                  type="text"
+                  id="budget"
+                  placeholder="e.g. $5k - $10k"
+                  value={formData.budget}
+                  onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
+                  className="w-full bg-[#F3F4F6] border-2 border-transparent rounded-[1.2rem] px-6 py-4 focus:outline-none focus:bg-white focus:border-brand-orange transition-all font-semibold text-brand-dark shadow-inner placeholder:text-brand-dark/30"
+                />
+              </div>
+
+              {/* Preferred Deadline */}
+              <div className="flex flex-col gap-2">
+                <label htmlFor="deadline" className="text-xs font-black uppercase tracking-widest text-brand-dark/60 ml-2">
+                  Preferred Deadline (Optional)
+                </label>
+                <input
+                  type="date"
+                  id="deadline"
+                  value={formData.deadline}
+                  onChange={(e) => setFormData({ ...formData, deadline: e.target.value })}
+                  className="w-full bg-[#F3F4F6] border-2 border-transparent rounded-[1.2rem] px-6 py-4 focus:outline-none focus:bg-white focus:border-brand-orange transition-all font-semibold text-brand-dark shadow-inner placeholder:text-brand-dark/30 text-brand-dark/60"
+                />
               </div>
             </div>
-            <button className="bg-brand-orange text-white px-12 py-6 rounded-full font-black text-xl hover:bg-brand-orange/90 transition-all shadow-2xl shadow-brand-orange/40 hover:scale-105 active:scale-95">
-              Send
+
+            {/* Project Description */}
+            <div className="flex flex-col gap-2 mb-8">
+              <label htmlFor="description" className="text-xs font-black uppercase tracking-widest text-brand-dark/60 ml-2">
+                Project Description <span className="text-brand-orange">*</span>
+              </label>
+              <textarea
+                id="description"
+                placeholder="Please describe your project, goals, and requirements..."
+                required
+                rows={4}
+                value={formData.description}
+                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                className="w-full bg-[#F3F4F6] border-2 border-transparent rounded-[1.2rem] px-6 py-4 focus:outline-none focus:bg-white focus:border-brand-orange transition-all font-semibold text-brand-dark shadow-inner placeholder:text-brand-dark/30 h-32 resize-none"
+              />
+            </div>
+
+            {/* Submission Alerts */}
+            {submitStatus.type && (
+              <div className={`p-4 rounded-[1.2rem] mb-6 font-semibold text-sm ${
+                submitStatus.type === "success" 
+                  ? "bg-emerald-50 text-emerald-800 border border-emerald-100" 
+                  : "bg-rose-50 text-rose-800 border border-rose-100"
+              }`}>
+                {submitStatus.message}
+              </div>
+            )}
+
+            {/* Submit Button */}
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="bg-brand-orange text-white px-12 py-5 rounded-full font-black text-xl hover:bg-brand-orange/90 transition-all shadow-xl shadow-brand-orange/20 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-75 disabled:cursor-not-allowed flex items-center justify-center gap-3 w-full"
+            >
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="w-6 h-6 animate-spin" />
+                  <span>Submitting...</span>
+                </>
+              ) : (
+                <>
+                  <span>Send Message</span>
+                  <ArrowUpRight className="w-6 h-6" />
+                </>
+              )}
             </button>
-          </div>
+          </form>
 
           <div className="flex flex-wrap justify-center gap-12 text-brand-dark/30 font-black uppercase tracking-[0.2em] text-[10px]">
             <div className="flex items-center gap-3">

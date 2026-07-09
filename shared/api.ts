@@ -10,3 +10,18 @@
 export interface DemoResponse {
   message: string;
 }
+
+export interface ContactSubmitRequest {
+  fullName: string;
+  email: string;
+  phone: string;
+  service: "Marketing" | "Design" | "Web Development";
+  description: string;
+  budget?: string;
+  deadline?: string;
+}
+
+export interface ContactSubmitResponse {
+  success: boolean;
+  message: string;
+}
