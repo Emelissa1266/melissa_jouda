@@ -1,5 +1,18 @@
 import React from "react";
-import { ArrowUpRight, Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
+import { ArrowUpRight, Instagram, Linkedin } from "lucide-react";
+
+const SOCIAL_LINKS = [
+  {
+    Icon: Instagram,
+    href: "https://www.instagram.com/miss_mell._/",
+    label: "Instagram",
+  },
+  {
+    Icon: Linkedin,
+    href: "https://www.linkedin.com/in/melissa-jouda-962548296/",
+    label: "LinkedIn",
+  },
+];
 
 export function Footer() {
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -33,8 +46,15 @@ export function Footer() {
               I am a passionate front-end developer with a knack for creating visually stunning and user-friendly web applications. With a strong foundation in React, TypeScript, and Node.js, I specialize in building dynamic interfaces that seamlessly integrate with powerful back-end services.
             </p>
             <div className="flex gap-4">
-              {[Facebook, Instagram, Twitter, Linkedin].map((Icon, i) => (
-                <a key={i} href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-purple hover:text-brand-dark transition-all">
+              {SOCIAL_LINKS.map(({ Icon, href, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={label}
+                  className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-purple hover:text-brand-dark transition-all"
+                >
                   <Icon className="w-5 h-5" />
                 </a>
               ))}
@@ -61,19 +81,6 @@ export function Footer() {
             </div>
           </div>
 
-          <div className="col-span-1">
-            <h3 className="text-lg font-bold mb-6 text-brand-orange/80">Get the latest information</h3>
-            <div className="relative group">
-              <input 
-                type="email" 
-                placeholder="Email Address" 
-                className="w-full bg-white/5 border border-white/10 rounded-full px-6 py-4 focus:outline-none focus:ring-2 focus:ring-brand-purple transition-all text-white font-semibold"
-              />
-              <button className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-brand-orange rounded-full flex items-center justify-center hover:bg-brand-orange/90 transition-colors">
-                <ArrowUpRight className="w-5 h-5 text-white" />
-              </button>
-            </div>
-          </div>
         </div>
 
         <div className="flex flex-col md:flex-row justify-between items-center text-white/40 text-sm">

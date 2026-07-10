@@ -113,6 +113,16 @@ interface ServiceWorkModalProps {
 export function ServiceWorkModal({ serviceId, isOpen, onClose }: ServiceWorkModalProps) {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
+  const goToContactForm = () => {
+    onClose();
+    window.setTimeout(() => {
+      const contactSection = document.getElementById("contact");
+      if (contactSection) {
+        contactSection.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 150);
+  };
+
   useEffect(() => {
     setSelectedProject(null);
   }, [serviceId]);
@@ -238,7 +248,7 @@ export function ServiceWorkModal({ serviceId, isOpen, onClose }: ServiceWorkModa
                <p className="text-brand-dark/30 uppercase font-black tracking-[0.2em] text-[10px] mb-2">Want to see more?</p>
                <h5 className="text-2xl font-black text-brand-dark">Let's build something <span className="text-brand-orange">together</span>.</h5>
             </div>
-            <button className="bg-brand-dark text-white px-8 py-4 rounded-full font-black text-sm flex items-center gap-2 hover:bg-brand-dark/90 transition-all hover:scale-105 shadow-xl" onClick={onClose}>
+            <button className="bg-brand-dark text-white px-8 py-4 rounded-full font-black text-sm flex items-center gap-2 hover:bg-brand-dark/90 transition-all hover:scale-105 shadow-xl" onClick={goToContactForm}>
               Start a Project <ArrowUpRight className="w-4 h-4 text-brand-purple" />
             </button>
           </div>
