@@ -27,7 +27,7 @@ export function Header() {
   // Scroll spy observer to highlight links dynamically
   React.useEffect(() => {
     const sections = NAV_LINKS.map(link => document.querySelector(link.href));
-    
+
     const observerOptions = {
       root: null,
       rootMargin: "-30% 0px -60% 0px",
@@ -86,13 +86,13 @@ export function Header() {
   return (
     <header className="fixed top-0 left-0 w-full z-[100] pointer-events-none">
       {/* Outer wrapper maintaining the floating pill layout without CSS transform constraints */}
-      <div className="w-full max-w-4xl mx-auto px-4 pt-6 pointer-events-auto">
+      <div className="w-full max-w-3xl mx-auto px-4 pt-6 pointer-events-auto">
         <nav className="bg-brand-dark/90 backdrop-blur-md rounded-full py-2 px-4 flex items-center justify-between border border-white/10 shadow-2xl relative">
-          
+
           {/* Desktop Navigation Menu (visible on screens >= 1024px) */}
-          <div className="hidden lg:flex flex-1 items-center justify-between">
+          <div className="hidden lg:grid flex-1 grid-cols-3 items-center">
             {/* Left Links */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 justify-self-start">
               {NAV_LINKS.slice(0, 3).map((link) => (
                 <a
                   key={link.label}
@@ -114,7 +114,7 @@ export function Header() {
             <a
               href="#home"
               onClick={(e) => scrollToSection(e, "#home")}
-              className="shrink-0 group mx-6"
+              className="shrink-0 group justify-self-center"
             >
               <img
                 src="https://cdn.builder.io/api/v1/image/assets%2Fac2a16b69531496d99c6dcb9dcc67f6d%2F9e275e97dd6c4901a0afe378a636055d?format=webp&width=100&height=100"
@@ -124,7 +124,7 @@ export function Header() {
             </a>
 
             {/* Right Links */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 justify-self-end">
               {NAV_LINKS.slice(3).map((link) => (
                 <a
                   key={link.label}
@@ -214,7 +214,8 @@ export function Header() {
               </div>
 
               {/* Vertical Navigation Links (centered and equally spaced) */}
-              <nav className="flex flex-col justify-center flex-grow gap-8">
+              <div className="flex-1 flex flex-col justify-center">
+                <nav className="flex flex-col gap-5">
                 {NAV_LINKS.map((link) => (
                   <a
                     key={link.label}
@@ -223,12 +224,12 @@ export function Header() {
                       scrollToSection(e, link.href);
                       setIsMenuOpen(false);
                     }}
-                    className={cn(
-                      "text-3xl md:text-4xl font-black tracking-tight transition-all text-left flex items-center justify-between group py-2 focus-visible:outline-none focus-visible:text-brand-purple",
-                      activeLink === link.href
-                        ? "text-brand-purple"
-                        : "text-white/65 hover:text-white hover:translate-x-2"
-                    )}
+className={cn(
+  "w-full flex items-center justify-between rounded-xl px-2 py-4 text-3xl md:text-4xl font-black tracking-tight transition-all group",
+  activeLink === link.href
+    ? "text-brand-purple"
+    : "text-white/70 hover:text-white hover:bg-white/5"
+)}
                   >
                     <span>{link.label}</span>
                     <ArrowUpRight className={cn(
@@ -240,15 +241,16 @@ export function Header() {
                   </a>
                 ))}
               </nav>
+              </div>
 
               {/* Sidebar social connections */}
-              <div className="mt-auto pt-10 border-t border-white/10 shrink-0">
+              <div className="pt-10 border-t border-white/10 shrink-0">
                 <p className="text-white/30 text-[10px] font-black uppercase tracking-[0.25em] mb-4">Let's Connect</p>
                 <div className="flex gap-4">
                   {[
                     { Icon: Twitter, href: "#" },
                     { Icon: Instagram, href: "https://www.instagram.com/miss_mell._/" },
-                    { Icon: Linkedin, href: "#" },
+                    { Icon: Linkedin, href: "https://www.linkedin.com/in/melissa-jouda-962548296/" },
                     { Icon: Github, href: "https://github.com/Emelissa1266" },
                   ].map(({ Icon, href }, idx) => (
                     <a

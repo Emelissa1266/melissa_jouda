@@ -45,7 +45,6 @@ const SERVICES_DATA: Record<string, ServiceType> = {
         image: mark1,
         tags: ["Tech events & hackathons", "Startup promotions", "Educational reels", "Brand storytelling"],
         link: "https://www.instagram.com/miss_mell._/reposts/",
-        mediaUrl: "#",
         
       },
       {

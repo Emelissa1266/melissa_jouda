@@ -3,7 +3,7 @@ import { ArrowUpRight, Star, Mail, Quote, ChevronDown, Loader2 } from "lucide-re
 import { motion } from "framer-motion";
 import { ServiceWorkModal } from "@/components/ServiceWorkModal";
 import profileImage from "../img/me.png";
-import Image2 from "../img/me2.png";
+import Image2 from "../img/meeeee.png";
 import eclipse from "../img/Ellipse 2.png";
 import vector from "../img/Vector 2.png";
 import nova1 from "../img/uiux.png";
@@ -124,7 +124,7 @@ export default function Index() {
       />
       {/* Hero Section */}
       <motion.section
-        className="relative min-h-[90vh] pt-40 pb-16 px-6 bg-background flex flex-col items-center overflow-hidden"
+        className="relative min-h-[90vh] pt-40 pb-16 px-6 bg-background flex flex-col items-center overflow-hidden scroll-mt-28 lg:scroll-mt-32"
         initial={{ opacity: 0, y: 80 }}
          id="home"
         whileInView={{ opacity: 1, y: 0 }}
@@ -156,7 +156,7 @@ export default function Index() {
 
         {/* Hero Title */}
         <motion.h1
-          className="text-4xl md:text-6xl lg:text-7xl font-black text-center tracking-tighter leading-[0.9] max-w-5xl mx-auto text-brand-dark"
+          className="text-4xl md:text-6xl lg:text-7xl font-black text-center tracking-tighter leading-[0.9] max-w-5xl mx-auto text-brand-dark scroll-mt-28 lg:scroll-mt-32"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.6 }}
@@ -218,7 +218,7 @@ export default function Index() {
       </motion.section>
 
       {/* Services Section */}
-      <section id="service" className="bg-brand-dark py-32 px-6 relative overflow-hidden rounded-[4rem] -mt-20 z-10 mx-4">
+      <section id="service" className="bg-brand-dark py-32 px-6 relative overflow-hidden rounded-[4rem] -mt-20 z-10 mx-4 scroll-mt-28 lg:scroll-mt-32">
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="flex flex-col md:flex-row justify-between items-start mb-24 gap-12">
             <div className="max-w-xl">
@@ -286,7 +286,7 @@ export default function Index() {
       </section>
 
       {/* Experience Section */}
-      <section id="project" className="py-32 px-6 bg-[#F3F4F6]">
+      <section id="project" className="py-32 px-6 bg-[#F3F4F6] scroll-mt-28 lg:scroll-mt-32">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-5xl md:text-7xl font-black text-center mb-32 text-brand-dark tracking-tighter">
             My Work Experience
@@ -368,7 +368,7 @@ export default function Index() {
       </section>
 
       {/* CTA Section */}
-      <section id="contact" className="py-24 px-6 text-center bg-[#F3F4F6]">
+      <section id="contact" className="py-24 px-6 text-center bg-[#F3F4F6] scroll-mt-28 lg:scroll-mt-32">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl md:text-7xl font-black text-brand-dark mb-6 tracking-tighter leading-[0.9]">
             Have an Awesome Project <br /> Idea? <span className="text-brand-orange italic font-light">Let's Discuss</span>
@@ -429,12 +429,12 @@ export default function Index() {
 
               {/* Service Needed */}
               <div className="flex flex-col gap-2">
-                <label htmlFor="service" className="text-xs font-black uppercase tracking-widest text-brand-dark/60 ml-2">
+                <label htmlFor="service-select" className="text-xs font-black uppercase tracking-widest text-brand-dark/60 ml-2">
                   Service Needed <span className="text-brand-orange">*</span>
                 </label>
                 <div className="relative">
                   <select
-                    id="service"
+                    id="service-select"
                     required
                     value={formData.service}
                     onChange={(e) => setFormData({ ...formData, service: e.target.value as any })}
@@ -459,7 +459,7 @@ export default function Index() {
                 <input
                   type="text"
                   id="budget"
-                  placeholder="e.g. $5k - $10k"
+                  placeholder="e.g. 40000DA - 80000DA"
                   value={formData.budget}
                   onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
                   className="w-full bg-[#F3F4F6] border-2 border-transparent rounded-[1.2rem] px-6 py-4 focus:outline-none focus:bg-white focus:border-brand-orange transition-all font-semibold text-brand-dark shadow-inner placeholder:text-brand-dark/30"
