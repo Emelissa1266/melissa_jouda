@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: myportfolio
+    env: node
+    buildCommand: "npm install --include=dev && npm run build"
+    startCommand: "npm start"
+    envVars:
+      - key: VITE_PUBLIC_BUILDER_KEY
+        value: __BUILDER_PUBLIC_KEY__
+      - key: PING_MESSAGE
+        value: "ping pong"
+      - key: GOOGLE_SHEETS_SCRIPT_URL
+        scope: runtime

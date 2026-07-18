@@ -3,7 +3,7 @@ import { ArrowUpRight, Star, Mail, Quote, ChevronDown, Loader2 } from "lucide-re
 import { motion } from "framer-motion";
 import { ServiceWorkModal } from "@/components/ServiceWorkModal";
 import profileImage from "../img/me.png";
-import Image2 from "../img/meeeee.png";
+import Image2 from "../img/me2.png";
 import eclipse from "../img/Ellipse 2.png";
 import vector from "../img/Vector 2.png";
 import nova1 from "../img/uiux.png";
@@ -472,8 +472,11 @@ export default function Index() {
                   Preferred Deadline (Optional)
                 </label>
                 <input
-                  type="date"
+                  type="text"
                   id="deadline"
+                  inputMode="numeric"
+                  autoComplete="off"
+                  placeholder="e.g. 10/07/2026"
                   value={formData.deadline}
                   onChange={(e) => setFormData({ ...formData, deadline: e.target.value })}
                   className="w-full bg-[#F3F4F6] border-2 border-transparent rounded-[1.2rem] px-6 py-4 focus:outline-none focus:bg-white focus:border-brand-orange transition-all font-semibold text-brand-dark shadow-inner placeholder:text-brand-dark/30 text-brand-dark/60"
