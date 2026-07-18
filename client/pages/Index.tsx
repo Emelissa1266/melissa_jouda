@@ -387,7 +387,7 @@ export default function Index() {
                 <input
                   type="text"
                   id="fullName"
-                  placeholder="John Doe"
+                  placeholder="benali israa"
                   required
                   value={formData.fullName}
                   onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
@@ -403,7 +403,7 @@ export default function Index() {
                 <input
                   type="email"
                   id="email"
-                  placeholder="john@example.com"
+                  placeholder="isra@example.com"
                   required
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -419,7 +419,7 @@ export default function Index() {
                 <input
                   type="tel"
                   id="phone"
-                  placeholder="+1 234 567 890"
+                  placeholder="+213 776638367"
                   required
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
