@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import { ContactSubmitRequest, ContactSubmitResponse } from "@shared/api";
+import { ContactSubmitRequest, ContactSubmitResponse } from "../../shared/api";
 import fs from "fs/promises";
 import path from "path";
 
