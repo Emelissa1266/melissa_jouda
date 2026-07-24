@@ -102,21 +102,37 @@ export const handleContact: RequestHandler = async (req, res) => {
       } catch (sheetsError: any) {
         console.error("Error writing to Google Sheets. Falling back to local storage:", sheetsError);
         // Fall back to local file storage if the sheet API request fails
-        await saveLocally(submissionData);
-        res.status(200).json({
-          success: true,
-          message: "Saved (offline fallback). Submission received, but there was a connectivity issue with Google Sheets."
-        });
+        try {
+          await saveLocally(submissionData);
+          res.status(200).json({
+            success: true,
+            message: "Saved (offline fallback). Submission received, but there was a connectivity issue with Google Sheets."
+          });
+        } catch (localError: any) {
+          console.error("Both Google Sheets and local fallback failed:", localError);
+          res.status(200).json({
+            success: true,
+            message: "Submission received, but could not be saved persistently (Google Sheets and local fallback unavailable)."
+          });
+        }
         return;
       }
     } else {
       // If no Google Sheet script URL is set, we save locally to submissions.json
       console.log("GOOGLE_SHEETS_SCRIPT_URL is not set. Saving submission locally...");
-      await saveLocally(submissionData);
-      res.status(200).json({
-        success: true,
-        message: "Submission saved locally! (Note: Set GOOGLE_SHEETS_SCRIPT_URL in .env to sync with Google Sheets)"
-      });
+      try {
+        await saveLocally(submissionData);
+        res.status(200).json({
+          success: true,
+          message: "Submission saved locally! (Note: Set GOOGLE_SHEETS_SCRIPT_URL in .env to sync with Google Sheets)"
+        });
+      } catch (localError: any) {
+        console.error("Saving locally failed:", localError);
+        res.status(200).json({
+          success: true,
+          message: "Submission received! (Note: Local storage failed, please configure GOOGLE_SHEETS_SCRIPT_URL for persistent storage)"
+        });
+      }
       return;
     }
   } catch (error: any) {
@@ -129,7 +145,10 @@ export const handleContact: RequestHandler = async (req, res) => {
 };
 
 async function saveLocally(data: any) {
-  const filePath = path.join(process.cwd(), "submissions.json");
+  // Use /tmp on Vercel as the filesystem is read-only, otherwise use current working directory
+  const isVercel = process.env.VERCEL === "1" || !!process.env.VERCEL;
+  const targetDir = isVercel ? "/tmp" : process.cwd();
+  const filePath = path.join(targetDir, "submissions.json");
   let submissions: any[] = [];
   try {
     const fileContent = await fs.readFile(filePath, "utf-8");
@@ -138,6 +157,11 @@ async function saveLocally(data: any) {
     // Start with empty array if file does not exist or has invalid JSON
   }
   submissions.push(data);
-  await fs.writeFile(filePath, JSON.stringify(submissions, null, 2), "utf-8");
-  console.log(`Saved submission to ${filePath}`);
+  try {
+    await fs.writeFile(filePath, JSON.stringify(submissions, null, 2), "utf-8");
+    console.log(`Saved submission to ${filePath}`);
+  } catch (err) {
+    console.error(`Failed to write local submissions file at ${filePath}:`, err);
+    throw new Error("Unable to save submissions locally (read-only filesystem or access error).");
+  }
 }
